@@ -1,5 +1,5 @@
 from tkinter import *
-from PIL import ImageTk
+from PIL import ImageTk, Image
 
 #Fonksiyonlar
 
@@ -14,7 +14,7 @@ def password_enter(event):
 #GUİ
 login_window=Tk()
 login_window.geometry('990x660+360+150')
-login_window.resizable(0,0)
+login_window.resizable(False, False)
 login_window.title('Giriş Sayfası')
 bgImage=ImageTk.PhotoImage(file='bg.jpg')
 
@@ -42,9 +42,8 @@ passwordEntry.bind('<FocusIn>', password_enter)
 
 fram2=Frame(login_window, width=250, height=2, bg='firebrick1')
 fram2.place(x=580,y=282)
-closeeye=PhotoImage(file='closeye.png')
+closeeye=ImageTk.PhotoImage(Image.open('closeye.png'))
 eyeButton=Button(login_window,image=closeeye,bd=0,bg='white',activebackground='white')
 eyeButton.place(x=800,y=255)
-
 
 login_window.mainloop()
