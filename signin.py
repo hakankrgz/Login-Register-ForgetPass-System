@@ -50,7 +50,7 @@ usernameEntry.bind('<FocusIn>', user_enter)
 fram1 = Frame(login_window, width=250, height=2, bg='firebrick1')
 fram1.place(x=580, y=222)
 
-passwordEntry = Entry(login_window, width=25, font=("Microsoft Yahei UI Light", 11, 'bold'), bg='white', borderwidth=0,
+passwordEntry = Entry(login_window, width=25, font=('Microsoft Yahei UI Light', 11, 'bold'), bg='white', borderwidth=0,
                       highlightthickness=0, fg='firebrick1')
 passwordEntry.place(x=580, y=260)
 passwordEntry.insert(0, 'Şifre')
@@ -62,11 +62,17 @@ fram2.place(x=580, y=282)
 openeye = ImageTk.PhotoImage(Image.open('openeye.png'))
 closeye = ImageTk.PhotoImage(Image.open('closeye.png'))
 eyeButton = Button(login_window, image=openeye, bd=0, bg='white', activebackground='white', cursor='hand2',
-                   command=hide, relief=FLAT)
+                   command=hide, relief=FLAT, highlightthickness=0, highlightbackground='white')
 eyeButton.place(x=800, y=255)
 
-forgetButton = Button(login_window, text='Şifreyi Unuttum!', bd=0, bg='white', activebackground='white', cursor='hand2',
-                      relief=FLAT)
+forgetButton = Button(login_window, text='Şifreyi Unuttum!', bd=0, bg='white', activebackground='white',
+                      cursor='hand2', highlightthickness=0, highlightbackground='white', highlightcolor='white',
+                      font=('Microsoft Yahei UI Light', 9, 'bold'), fg='firebrick1', activeforeground='firebrick1')
 forgetButton.place(x=715, y=295)
 
+loginButton = Button(login_window, text='GİRİŞ', font=('Open Sans', 16, 'bold'), fg='white', bg='firebrick1',
+                     activeforeground='white', activebackground='firebrick1', cursor='hand2', bd=0, width=19,
+                     highlightthickness=0)
+
+loginButton.place(x=578, y=350)
 login_window.mainloop()
