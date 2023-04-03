@@ -1,8 +1,27 @@
 from tkinter import *
 from PIL import ImageTk, Image
+import webbrowser
 
 
 # Fonksiyonlar
+
+def signup_label(event):
+    # düzenlenecek giriş butonu
+    login_window.deiconify()
+    webbrowser.open('https://www.hakankaragoz.com')
+
+
+def login_label(event):
+    # düzenlenecek giriş butonu
+    login_window.deiconify()
+    webbrowser.open('https://www.hakankaragoz.com')
+
+
+def forget_label(event):
+    # düzenlenecek giriş butonu
+    login_window.deiconify()
+    webbrowser.open('https://www.hakankaragoz.com')
+
 
 def hide():
     eyeButton.configure(image=closeye)
@@ -44,7 +63,6 @@ usernameEntry = Entry(login_window, width=25, font=("Microsoft Yahei UI Light", 
                       highlightthickness=0, fg='firebrick1')
 usernameEntry.place(x=580, y=200)
 usernameEntry.insert(0, 'Kullanıcı Adı')
-
 usernameEntry.bind('<FocusIn>', user_enter)
 
 fram1 = Frame(login_window, width=250, height=2, bg='firebrick1')
@@ -54,7 +72,6 @@ passwordEntry = Entry(login_window, width=25, font=('Microsoft Yahei UI Light', 
                       highlightthickness=0, fg='firebrick1')
 passwordEntry.place(x=580, y=260)
 passwordEntry.insert(0, 'Şifre')
-
 passwordEntry.bind('<FocusIn>', password_enter)
 
 fram2 = Frame(login_window, width=250, height=2, bg='firebrick1')
@@ -65,14 +82,35 @@ eyeButton = Button(login_window, image=openeye, bd=0, bg='white', activebackgrou
                    command=hide, relief=FLAT, highlightthickness=0, highlightbackground='white')
 eyeButton.place(x=800, y=255)
 
-forgetButton = Button(login_window, text='Şifreyi Unuttum!', bd=0, bg='white', activebackground='white',
-                      cursor='hand2', highlightthickness=0, highlightbackground='white', highlightcolor='white',
-                      font=('Microsoft Yahei UI Light', 9, 'bold'), fg='firebrick1', activeforeground='firebrick1')
-forgetButton.place(x=715, y=295)
+forgetLabel = Label(login_window, text='Şifreyi Unuttum!',
+                    font=('Microsoft Yahei UI Light', 10, 'bold'), fg='firebrick1', bg='white', cursor='hand2')
+forgetLabel.place(x=725, y=295)
+forgetLabel.bind("<Button-1>", forget_label)
 
-loginButton = Button(login_window, text='GİRİŞ', font=('Open Sans', 16, 'bold'), fg='white', bg='firebrick1',
-                     activeforeground='white', activebackground='firebrick1', cursor='hand2', bd=0, width=19,
-                     highlightthickness=0)
+loginLabel = Label(login_window, text='                       GİRİŞ                       ',
+                   font=('Open Sans', 19, 'bold'), fg='white', bg='firebrick1', cursor='hand2')
+loginLabel.place(x=578, y=350)
+loginLabel.bind("<Button-1>", login_label)
 
-loginButton.place(x=578, y=350)
+orLabel = Label(login_window, text='--------------VEYA--------------', font=('Open Sans', 16), fg='firebrick1',
+                bg='white')
+orLabel.place(x=580, y=390)
+
+facebook_logo = ImageTk.PhotoImage(Image.open('facebook.png'))
+fbLabel = Label(login_window, image=facebook_logo, bg='white')
+fbLabel.place(x=640, y=440)
+
+google_logo = ImageTk.PhotoImage(Image.open('google.png'))
+googleLabel = Label(login_window, image=google_logo, bg='white')
+googleLabel.place(x=690, y=440)
+
+twitter_logo = ImageTk.PhotoImage(Image.open('twitter.png'))
+twitterLabel = Label(login_window, image=twitter_logo, bg='white')
+twitterLabel.place(x=740, y=440)
+
+signupLabel = Label(login_window, text='Hesabın yok mu? O halde Kayıt Ol', font=('Open Sans', 10, 'bold'),
+                    fg='firebrick1', bg='white', cursor='hand2')
+signupLabel.bind("<Button-1>", signup_label)
+signupLabel.place(x=615, y=500)
+
 login_window.mainloop()
