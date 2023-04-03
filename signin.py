@@ -4,6 +4,17 @@ import webbrowser
 
 
 # Fonksiyonlar
+def openeye_label(event):
+    eyeLabel.configure(image=openeye)
+    passwordEntry.config(show='')
+    eyeLabel.bind("<Button-1>", closeye_label)
+
+
+def closeye_label(event):
+    eyeLabel.configure(image=closeye)
+    passwordEntry.config(show='*')
+    eyeLabel.bind("<Button-1>", openeye_label)
+
 
 def signup_label(event):
     # düzenlenecek giriş butonu
@@ -23,18 +34,6 @@ def forget_label(event):
     webbrowser.open('https://www.hakankaragoz.com')
 
 
-def hide():
-    eyeButton.configure(image=closeye)
-    passwordEntry.config(show='*')
-    eyeButton.config(command=show)
-
-
-def show():
-    eyeButton.config(image=openeye)
-    passwordEntry.config(show='')
-    eyeButton.config(command=hide)
-
-
 def user_enter(event):
     if usernameEntry.get() == 'Kullanıcı Adı':
         usernameEntry.delete(0, END)
@@ -45,7 +44,7 @@ def password_enter(event):
         passwordEntry.delete(0, END)
 
 
-# GUİ
+# GUI
 login_window = Tk()
 login_window.geometry('990x660+360+150')
 login_window.resizable(False, False)
@@ -76,11 +75,12 @@ passwordEntry.bind('<FocusIn>', password_enter)
 
 fram2 = Frame(login_window, width=250, height=2, bg='firebrick1')
 fram2.place(x=580, y=282)
+
 openeye = ImageTk.PhotoImage(Image.open('openeye.png'))
 closeye = ImageTk.PhotoImage(Image.open('closeye.png'))
-eyeButton = Button(login_window, image=openeye, bd=0, bg='white', activebackground='white', cursor='hand2',
-                   command=hide, relief=FLAT, highlightthickness=0, highlightbackground='white')
-eyeButton.place(x=800, y=255)
+eyeLabel = Label(login_window, image=closeye, bg='white')
+eyeLabel.place(x=800, y=253)
+eyeLabel.bind("<Button-1>", openeye_label)
 
 forgetLabel = Label(login_window, text='Şifreyi Unuttum!',
                     font=('Microsoft Yahei UI Light', 10, 'bold'), fg='firebrick1', bg='white', cursor='hand2')
