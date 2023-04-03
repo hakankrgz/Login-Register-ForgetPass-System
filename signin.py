@@ -2,7 +2,6 @@ from tkinter import *
 from PIL import ImageTk, Image
 import webbrowser
 
-
 # Fonksiyonlar
 def openeye_label(event):
     eyeLabel.configure(image=openeye)
@@ -17,9 +16,8 @@ def closeye_label(event):
 
 
 def signup_label(event):
-    # düzenlenecek giriş butonu
-    login_window.deiconify()
-    webbrowser.open('https://www.hakankaragoz.com')
+    login_window.destroy()
+    import signup
 
 
 def login_label(event):
@@ -48,7 +46,7 @@ def password_enter(event):
 login_window = Tk()
 login_window.geometry('990x660+360+150')
 login_window.resizable(False, False)
-login_window.title('Giriş Sayfası')
+login_window.title('Giriş Yap')
 bgImage = ImageTk.PhotoImage(file='bg.jpg')
 
 bgLabel = Label(login_window, image=bgImage)
