@@ -21,12 +21,16 @@ def connect_database(event):
             messagebox.showerror('Error','Veritabanı Bağlantısında Hata Var, Tekrar Dene')
             return
 
-        query='CREATE DATABASE userdata'
-        mycursor.execute(query)
-        query='USE userdata'
-        mycursor.execute(query)
-        query='CREATE TABLE data (id INT AUTO_INCREMENT PRIMARY KEY not null, email varchar(50),username varchar(100),password varchar(20))'
-        mycursor.execute(query)
+        try:
+            query='CREATE DATABASE userdata'
+            mycursor.execute(query)
+            query='USE userdata'
+            mycursor.execute(query)
+            query='CREATE TABLE data (id INT AUTO_INCREMENT PRIMARY KEY not null, email varchar(50),username varchar(100),password varchar(20))'
+            mycursor.execute(query)
+        except:
+            mycursor.execute('USE userdata')
+
 def login_page(event):
     signup_window.destroy()
     import signin
