@@ -6,6 +6,14 @@ import mysql.connector
 
 
 # FONKSİYONLAR
+def clear():
+    emailEntry.delete(0, END)
+    usernameEntry.delete(0, END)
+    passwordEntry.delete(0, END)
+    confirmEntry.delete(0, END)
+    check.set(0)
+
+
 def connect_database(event):
     if emailEntry.get() == '' or usernameEntry.get() == '' or passwordEntry.get() == '' or confirmEntry.get() == '':
         messagebox.showerror('Error', 'Tüm alanlar zorunludur!')
@@ -15,21 +23,31 @@ def connect_database(event):
         messagebox.showerror('Error', 'Lütfen "Şartlar ve Koşulları" Kabul Edin!')
     else:
         try:
-            con=mysql.connector.connect(host='localhost', user='root', password='')
-            mycursor=con.cursor()
+            con = mysql.connector.connect(host='localhost', user='root', password='')
+            mycursor = con.cursor()
         except:
-            messagebox.showerror('Error','Veritabanı Bağlantısında Hata Var, Tekrar Dene')
+            messagebox.showerror('Error', 'Veritabanı Bağlantısında Hata Var, Tekrar Dene')
             return
 
         try:
-            query='CREATE DATABASE userdata'
+            query = 'CREATE DATABASE userdata'
             mycursor.execute(query)
-            query='USE userdata'
+            query = 'USE userdata'
             mycursor.execute(query)
-            query='CREATE TABLE data (id INT AUTO_INCREMENT PRIMARY KEY not null, email varchar(50),username varchar(100),password varchar(20))'
+            query = 'CREATE TABLE data (id INT AUTO_INCREMENT PRIMARY KEY not null, email varchar(50),username varchar(100),password varchar(20))'
             mycursor.execute(query)
         except:
             mycursor.execute('USE userdata')
+
+        query = 'INSERT INTO data(email,username,password) values(%s,%s,%s)'
+        mycursor.execute(query, (emailEntry.get(), usernameEntry.get(), passwordEntry.get()))
+        con.commit()
+        con.close()
+        messagebox.showinfo('Succes', 'Kayıt başarılı.')
+        clear()
+        signup_window.destroy()
+        import signin
+
 
 def login_page(event):
     signup_window.destroy()
