@@ -1,6 +1,9 @@
 from tkinter import *
 from PIL import ImageTk, Image
 import webbrowser
+from tkinter import messagebox
+import mysql.connector
+
 
 # Fonksiyonlar
 def openeye_label(event):
@@ -20,16 +23,37 @@ def signup_label(event):
     import signup
 
 
-def login_label(event):
-    # düzenlenecek giriş butonu
-    login_window.deiconify()
-    webbrowser.open('https://www.hakankaragoz.com')
+def login_user(event):
+    if usernameEntry.get() == '' or passwordEntry.get() == '' or usernameEntry.get() == 'Kullanıcı Adı' or passwordEntry.get() == 'Şifre':
+        messagebox.showerror('Error', 'Tüm Alanları Doldurmalısın!')
+
+    else:
+        try:
+            con = mysql.connector.connect(host='localhost', user='root', password='')
+            mycursor = con.cursor()
+        except:
+            messagebox.showerror('Error', 'Veritabanı Bağlantısında Hata Var, Tekrar Dene')
+            return
+        query = 'USE userdata'
+        mycursor.execute(query)
+        query = 'select * from data where username=%s and password=%s'
+        mycursor.execute(query, (usernameEntry.get(), passwordEntry.get()))
+        row = mycursor.fetchone()
+        if row == None:
+            messagebox.showerror('Error', 'Geçersiz Kullanıcı Adı veya Şifre')
+        else:
+            messagebox.showinfo('Welcome', 'Giriş Başarılı!')
 
 
-def forget_label(event):
-    # düzenlenecek giriş butonu
-    login_window.deiconify()
-    webbrowser.open('https://www.hakankaragoz.com')
+def forget_pass(event):
+    window = Toplevel()
+    window.title('Şifremi Unuttum')
+
+    bgPic = ImageTk.PhotoImage(file='background.jpg')
+    bglabel = Label(window, image=bgPic)
+    bglabel.grid()
+
+    window.mainloop()
 
 
 def user_enter(event):
@@ -83,12 +107,12 @@ eyeLabel.bind("<Button-1>", openeye_label)
 forgetLabel = Label(login_window, text='Şifreyi Unuttum!',
                     font=('Microsoft Yahei UI Light', 10, 'bold'), fg='firebrick1', bg='white', cursor='hand2')
 forgetLabel.place(x=725, y=295)
-forgetLabel.bind("<Button-1>", forget_label)
+forgetLabel.bind("<Button-1>", forget_pass)
 
 loginLabel = Label(login_window, text='                       GİRİŞ                       ',
                    font=('Open Sans', 19, 'bold'), fg='white', bg='firebrick1', cursor='hand2')
 loginLabel.place(x=578, y=350)
-loginLabel.bind("<Button-1>", login_label)
+loginLabel.bind("<Button-1>", login_user)
 
 orLabel = Label(login_window, text='--------------VEYA--------------', font=('Open Sans', 16), fg='firebrick1',
                 bg='white')
