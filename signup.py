@@ -39,14 +39,21 @@ def connect_database(event):
         except:
             mycursor.execute('USE userdata')
 
-        query = 'INSERT INTO data(email,username,password) values(%s,%s,%s)'
-        mycursor.execute(query, (emailEntry.get(), usernameEntry.get(), passwordEntry.get()))
-        con.commit()
-        con.close()
-        messagebox.showinfo('Succes', 'Kayıt başarılı.')
-        clear()
-        signup_window.destroy()
-        import signin
+        query = 'SELECT * from data where username=%s'
+        mycursor.execute(query, (usernameEntry.get(),))
+
+        row = mycursor.fetchone()
+        if row != None:
+            messagebox.showerror('Error', 'Kullanıcı Adı Mevcut!')
+        else:
+            query = 'INSERT INTO data(email,username,password) values(%s,%s,%s)'
+            mycursor.execute(query, (emailEntry.get(), usernameEntry.get(), passwordEntry.get()))
+            con.commit()
+            con.close()
+            messagebox.showinfo('Succes', 'Kayıt başarılı.')
+            clear()
+            signup_window.destroy()
+            import signin
 
 
 def login_page(event):
