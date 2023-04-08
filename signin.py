@@ -43,6 +43,7 @@ def login_user(event):
             messagebox.showerror('Error', 'Geçersiz Kullanıcı Adı veya Şifre')
         else:
             messagebox.showinfo('Welcome', 'Giriş Başarılı!')
+            webbrowser.open('https://www.instagram.com/')
 
 
 def forget_pass(event):
