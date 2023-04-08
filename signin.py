@@ -192,5 +192,4 @@ signupLabel = Label(login_window, text='Hesabın yok mu? O halde Kayıt Ol', fon
 signupLabel.bind("<Button-1>", signup_label)
 signupLabel.place(x=615, y=500)
 
-
 login_window.mainloop()
